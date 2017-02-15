@@ -12,12 +12,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends Activity {
     Button b1,b2,b3;
     EditText ed1,ed2;
 
     TextView tx1;
     int counter = 3;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,7 @@ public class MainActivity extends Activity {
 
         b1 = (Button)findViewById(R.id.button);
         b2 = (Button)findViewById(R.id.button1);
+        b3 =(Button)findViewById(R.id.button3);
         ed1 = (EditText)findViewById(R.id.editText);
         ed2 = (EditText)findViewById(R.id.editText2);
 
@@ -58,6 +63,15 @@ public class MainActivity extends Activity {
 
 
             }
+        });
+
+       b3.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent in=new Intent(MainActivity.this,Registration.class);
+                startActivity(in);
+            }
+
         });
 
 
