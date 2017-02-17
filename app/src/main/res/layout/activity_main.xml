@@ -37,7 +37,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Forgot Password"
+        android:text="Reset Password"
         android:id="@+id/button1"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
@@ -56,7 +56,7 @@
         android:layout_width = "wrap_content"
         android:layout_height = "wrap_content"
         android:id = "@+id/editText"
-        android:hint = "Enter UserName"
+        android:hint = "Enter Email"
         android:focusable = "true"
         android:textColorHighlight = "#ff7eff15"
         android:textColorHint = "#ffff25e6"

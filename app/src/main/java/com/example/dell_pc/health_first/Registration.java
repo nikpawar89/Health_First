@@ -16,8 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -58,7 +57,7 @@ public class Registration extends Activity {
     private Button buttonLogout;
 
     //defining a database reference
-    private DatabaseReference databaseReference;
+   // private DatabaseReference databaseReference;
 
     //our new views
     private EditText editTextName, editTextAddress;
@@ -110,7 +109,7 @@ public class Registration extends Activity {
        textBoxphone=(EditText)findViewById(R.id.editTextphonenumber);
         textBoxage=(EditText)findViewById(R.id.editTextage);
         textusername=(EditText)findViewById(R.id.editTextusername) ;
-        textemailid=(EditText) findViewById(R.id.editTextemailid);
+     //   textemailid=(EditText) findViewById(R.id.editTextemailid);
         textpassword=(EditText) findViewById(R.id.editTextpassword);
 
        vfirstname= textBoxfirstname.getText().toString();
@@ -124,7 +123,7 @@ public class Registration extends Activity {
 
      vusername=textusername.getText().toString().trim();
         // vusername=vusername.trim();
-        vemailid=textemailid.getText().toString().trim();
+      //  vemailid=textemailid.getText().toString().trim();
         //vemailid=vemailid.trim();
        vextpassword=textpassword.getText().toString().trim();
 
@@ -162,10 +161,9 @@ public class Registration extends Activity {
                     age=Integer.parseInt(vage);
                 }
 
-                  Toast.makeText(getApplicationContext(),"email is "+vusername,Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(getApplicationContext(),"password is "+vextpassword,Toast.LENGTH_SHORT).show();
-
+                Log.d(TAG+"USERNAME :",vusername);
+                Log.d(TAG+"PASSWORD ",vextpassword);
 
 
                 // Toast.makeText(getApplicationContext(),"Phone value is "+vphone+" phone length is "+vphone.length(),Toast.LENGTH_SHORT).show();
@@ -189,6 +187,10 @@ public class Registration extends Activity {
 
                 }
                 else {
+
+                    Toast.makeText(getApplicationContext(),"username is "+"test",Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(getApplicationContext(),"password is "+vextpassword,Toast.LENGTH_SHORT).show();
                     Toast.makeText(getApplicationContext(),"Invalid ", Toast.LENGTH_SHORT).show();
                 }
 
@@ -198,40 +200,62 @@ public class Registration extends Activity {
 
 
             }
-            public boolean isvalidpassword(final String password){
-                Pattern pattern;
-                Matcher matcher;
 
-                final String password_pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$";
-                pattern = Pattern.compile(password_pattern);
-                matcher=pattern.matcher(password);
-
-                return matcher.matches();
-            }
-
-            public boolean isvalidemailid(final String email){
-                Pattern pattern;
-                Matcher matcher;
-
-                // final String email_pattern="^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$";
-                final String email_pattern= ".+@.+\\.[a-z]+";
-                pattern = Pattern.compile(email_pattern);
-                matcher=pattern.matcher(email);
-
-                return matcher.matches();
-            }
 
         });
 
 
 
         //getting the database reference
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+       // databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
     }
 
-    private void createAccount(String email, String password) {
+    public boolean isvalidpassword(final String password){
+        Pattern pattern;
+        Matcher matcher;
+
+        final String password_pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$";
+        pattern = Pattern.compile(password_pattern);
+        matcher=pattern.matcher(password);
+
+        return matcher.matches();
+    }
+
+    public boolean isvalidemailid(final String email){
+        Pattern pattern;
+        Matcher matcher;
+
+        // final String email_pattern="^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$";
+        final String email_pattern= ".+@.+\\.[a-z]+";
+        pattern = Pattern.compile(email_pattern);
+        matcher=pattern.matcher(email);
+
+        return matcher.matches();
+    }
+
+    // [START on_start_add_listener]
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+    // [END on_start_add_listener]
+
+    // [START on_stop_remove_listener]
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+    // [END on_stop_remove_listener]
+
+
+
+     void createAccount(String email, String password) {
         Log.d(TAG, "createAccount:" + email);
         Log.d(TAG+"USERNAME :",vusername);
         Log.d(TAG+"PASSWORD ",vextpassword);
@@ -270,10 +294,10 @@ public class Registration extends Activity {
     private void saveUserInformation(String firstName, String lastName,String emailId,int age,double phoneNumber,String emergencyContact,
                                      String username ,String password) {
 
-        UserInformation userInformation = new UserInformation(firstName,lastName,emailId,age,phoneNumber,emergencyContact,username,password);
+        UserInformation userInformation = new UserInformation(firstName,lastName,age,phoneNumber,emergencyContact,username,password);
 
 
-        databaseReference.child(emailId).setValue(userInformation);
+        //databaseReference.child(emailId).setValue(userInformation);
 
         //displaying a success toast
         Toast.makeText(this, " chal save kardiya teri info", Toast.LENGTH_LONG).show();

@@ -13,12 +13,9 @@
         android:title="Profile"
         />
 
-    <item android:id="@+id/bodymeasurments"
 
-        android:title="Body Measurments" />
+    <item android:id="@+id/logout"
 
-    <item android:id="@+id/diet"
-
-        android:title="Diet" />
+        android:title="Logout" />
 
 </menu>

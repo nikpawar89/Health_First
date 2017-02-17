@@ -10,9 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.dell_pc.health_first.Registration">
 
-
-
-
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,26 +36,6 @@
             android:layout_alignStart="@+id/textViewfirstname"
             android:layout_marginTop="15dp"
             android:id="@+id/textViewlastname" />
-
-        <TextView
-            android:text="Email_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="29dp"
-            android:id="@+id/textViewemailid"
-            android:layout_below="@+id/textViewlastname"
-            android:layout_alignLeft="@+id/textViewlastname"
-            android:layout_alignStart="@+id/textViewlastname" />
-
-        <TextView
-            android:text="Age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:id="@+id/textViewage"
-            android:layout_below="@+id/textViewemailid"
-            android:layout_alignLeft="@+id/textViewemailid"
-            android:layout_alignStart="@+id/textViewemailid" />
 
         <TextView
             android:text="Phone Number"
@@ -93,7 +70,7 @@
             android:layout_alignParentStart="true" />
 
         <TextView
-            android:text="Username"
+            android:text="Username/Email-id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewemergency"
@@ -138,45 +115,6 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:hint="Email-id"
-            android:id="@+id/editTextemailid"
-            android:width="100dp"
-            android:layout_alignBaseline="@+id/textViewemailid"
-            android:layout_alignBottom="@+id/textViewemailid"
-            android:layout_alignLeft="@+id/editTextfirstname"
-            android:layout_alignStart="@+id/editTextfirstname" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:ems="10"
-            android:maxLength="20"
-            android:hint="Last Name"
-            android:id="@+id/editTextlastname"
-            android:width="100dp"
-            android:layout_above="@+id/editTextemailid"
-            android:layout_toRightOf="@+id/buttonsubmit"
-            android:layout_toEndOf="@+id/buttonsubmit" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:maxLength="10"
-            android:hint="Phone number"
-            android:id="@+id/editTextphonenumber"
-            android:width="100dp"
-            android:layout_below="@+id/editTextage"
-            android:layout_alignLeft="@+id/editTextemailid"
-            android:layout_alignStart="@+id/editTextemailid" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
             android:hint="Username"
             android:id="@+id/editTextusername"
             android:width="100dp"
@@ -184,18 +122,6 @@
             android:layout_alignBottom="@+id/textViewusername"
             android:layout_alignLeft="@+id/editTextphonenumber"
             android:layout_alignStart="@+id/editTextphonenumber" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:hint="Password"
-            android:id="@+id/editTextpassword"
-            android:width="100dp"
-            android:layout_below="@+id/editTextusername"
-            android:layout_alignLeft="@+id/editTextusername"
-            android:layout_alignStart="@+id/editTextusername" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -220,16 +146,62 @@
             android:hint="Emergency contact"
             android:id="@+id/editTextemergency"
             android:width="100dp"
-            android:layout_centerVertical="true"
-            android:layout_alignLeft="@+id/editTextphonenumber"
-            android:layout_alignStart="@+id/editTextphonenumber" />
+            android:layout_alignBaseline="@+id/textViewemergency"
+            android:layout_alignBottom="@+id/textViewemergency"
+            android:layout_alignStart="@+id/editTextusername" />
 
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:hint="Password"
+            android:id="@+id/editTextpassword"
+            android:width="100dp"
+            android:layout_alignBaseline="@+id/textView18"
+            android:layout_alignBottom="@+id/textView18"
+            android:layout_alignStart="@+id/editTextusername" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:maxLength="10"
+            android:hint="Phone number"
+            android:id="@+id/editTextphonenumber"
+            android:width="100dp"
+            android:layout_above="@+id/textViewemergency"
+            android:layout_alignStart="@+id/editTextage" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:maxLength="20"
+            android:hint="Last Name"
+            android:id="@+id/editTextlastname"
+            android:width="100dp"
+            android:layout_alignBaseline="@+id/textViewlastname"
+            android:layout_alignBottom="@+id/textViewlastname"
+            android:layout_alignStart="@+id/editTextfirstname" />
+
+        <TextView
+            android:text="Age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:id="@+id/textViewage"
+            android:layout_below="@+id/textViewlastname"
+            android:layout_alignStart="@+id/textViewlastname" />
         <![CDATA[
         android:width="100dp"
         android:layout_alignTop="@+id/textView6"
         android:layout_toRightOf="@+id/buttonsubmit"
         android:layout_toEndOf="@+id/buttonsubmit" />
         ]]>
+
 
 
     </RelativeLayout>

@@ -7,7 +7,7 @@ package com.example.dell_pc.health_first;
 public class UserInformation {
     public String firstName;
     public String lastName;
-    public String emailId;
+
     public int age;
     public Double phoneNumber;
     public String emergencyContact;
@@ -18,12 +18,12 @@ public class UserInformation {
 
     }
 
-    public UserInformation(String firstName, String lastName, String emailId, int age, Double phoneNumber, String emergencyContact,
-                           String username , String password) {
+    public UserInformation(String firstName, String lastName,int age,Double phoneNumber,String emergencyContact,
+                           String username ,String password) {
 
         this.firstName=firstName;
         this.lastName=lastName;
-        this.emailId=emailId;
+
         this.age=age;
         this.phoneNumber=phoneNumber;
         this.emergencyContact=emergencyContact;
@@ -49,13 +49,7 @@ public class UserInformation {
         this.lastName = lastName;
     }
 
-    public String getEmailId() {
-        return emailId;
-    }
 
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
 
     public int getAge() {
         return age;
