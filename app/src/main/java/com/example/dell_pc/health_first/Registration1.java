@@ -118,7 +118,7 @@ public class Registration1 extends AppCompatActivity implements View.OnClickList
 
         //showProgressDialog();
 
-        // [START create_user_with_email]
+        /*// [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -164,7 +164,60 @@ public class Registration1 extends AppCompatActivity implements View.OnClickList
                         // [END_EXCLUDE]
                     }
                 });
-        // [END create_user_with_email]
+        // [END create_user_with_email]*/
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), R.string.auth_failed,
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            meditTextfirstname = (EditText) findViewById(R.id.editTextfirstname);
+                            meditTextlastname = (EditText) findViewById(R.id.editTextlastname);
+                            meditTextage = (EditText) findViewById(R.id.editTextage);
+                            meditTextphonenumber = (EditText) findViewById(R.id.editTextphonenumber);
+                            meditTextemergency = (EditText) findViewById(R.id.editTextemergency);
+                            muserNameField = (EditText) findViewById(R.id.editTextusername);
+                            mPasswordField = (EditText) findViewById(R.id.editTextpassword);
+                            Toast.makeText(getApplicationContext(),
+                                    "username is "+muserNameField.getText().toString()
+                                            +"\n password is "+mPasswordField.getText().toString()
+                                            +"\n firstname is "+meditTextfirstname.getText().toString()
+                                            +"\n lastName is"+meditTextlastname.getText().toString()
+                                            +"\n age is "+ Integer.parseInt(meditTextage.getText().toString())
+                                            +"\n phone number"+Double.parseDouble(meditTextphonenumber.getText().toString())
+                                            +"\n emergency "+meditTextemergency.getText().toString()+"\n ",
+
+                                    Toast.LENGTH_LONG).show();
+
+                            saveUserInformation(meditTextfirstname.getText().toString(),meditTextlastname.getText().toString(),Integer.parseInt(meditTextage.getText().toString()),
+                                    Double.parseDouble(meditTextphonenumber.getText().toString())
+                                    ,meditTextemergency.getText().toString(),muserNameField.getText().toString(),mPasswordField.getText().toString());
+
+
+                        }
+
+
+                    }
+                });
+
+
+
+
+
+
+
+
+
+
     }
 
 
@@ -174,12 +227,18 @@ public class Registration1 extends AppCompatActivity implements View.OnClickList
     void saveUserInformation(String firstName, String lastName,int age,double phoneNumber,String emergencyContact,
                                      String username ,String password) {
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+
+            String uid = user.getUid();
+            UserInformation userInformation = new UserInformation(firstName,lastName,age,phoneNumber,emergencyContact,username,password);
 
 
-        UserInformation userInformation = new UserInformation(firstName,lastName,age,phoneNumber,emergencyContact,username,password);
+            databaseReference.child(uid).setValue(userInformation);
+        }
 
 
-        databaseReference.child(firstName).setValue(userInformation);
 
         //displaying a success toast
         //Toast.makeText(this, " chal save kardiya teri info", Toast.LENGTH_LONG).show();
@@ -323,8 +382,8 @@ public class Registration1 extends AppCompatActivity implements View.OnClickList
                 createAccount(muserNameField.getText().toString(),mPasswordField.getText().toString());
                 Toast.makeText(getApplicationContext(), "Redirecting...",
                         Toast.LENGTH_SHORT).show();
-                Intent in=new Intent(Registration1.this,MainActivity.class);
-                startActivity(in);
+               // Intent in=new Intent(Registration1.this,MainActivity.class);
+               // startActivity(in);
             }
 
 
