@@ -13,6 +13,9 @@
         android:title="Profile"
         />
 
+    <item android:id="@+id/diet"
+        android:title="Diet"
+        />
 
     <item android:id="@+id/logout"
 

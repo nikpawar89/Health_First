@@ -23,7 +23,8 @@
         <activity android:name=".ViewProfileActivity" />
         <activity android:name=".UpdateProfileActivity" />
         <activity android:name=".Registration" />
-        <activity android:name=".Registration1"></activity>
+        <activity android:name=".Registration1" />
+        <activity android:name=".Diet"></activity>
     </application>
 
 </manifest>

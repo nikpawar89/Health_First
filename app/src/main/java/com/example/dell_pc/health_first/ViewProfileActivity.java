@@ -17,8 +17,13 @@ import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ViewProfileActivity extends Activity {
     private EditText user,age,weight,hight,blood,doctor,EmerName,EmerContact;
@@ -33,6 +38,43 @@ public class ViewProfileActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profileview);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+
+            String uid = user.getUid();
+            //UserInformation userInformation = new UserInformation(firstName,lastName,age,phoneNumber,emergencyContact,username,password);
+
+
+            Toast.makeText(this," your uid is "+uid,Toast.LENGTH_SHORT).show();
+            databaseReference = FirebaseDatabase.getInstance().getReference().child(uid);
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String uname = (String)dataSnapshot.child("userName").getValue();
+                    String emecon = (String)dataSnapshot.child("emerName").getValue();
+                    String blood_ = (String)dataSnapshot.child("blood").getValue();
+                    doctor.setText(uname.toString());
+                    blood.setText(blood_.toString());
+                    EmerContact.setText(emecon.toString());
+
+                    Log.v("name", (String)  uname);
+                    Log.v("emename", (String)  emecon);
+                    Log.v("blood", (String)  blood_);
+                    //Toast.makeText(getApplicationContext(), acctname , Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+
+            });
+
+
+        }
+
 
         submit =(Button)findViewById(R.id.Submit);
         back =(Button)findViewById(R.id.Back);

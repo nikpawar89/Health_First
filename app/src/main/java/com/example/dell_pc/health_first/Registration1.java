@@ -236,6 +236,8 @@ public class Registration1 extends AppCompatActivity implements View.OnClickList
 
 
             databaseReference.child(uid).setValue(userInformation);
+
+
         }
 
 
@@ -394,6 +396,7 @@ public class Registration1 extends AppCompatActivity implements View.OnClickList
 
 
         }
+
         if(id==R.id.buttonback){
             Toast.makeText(getApplicationContext(), "Registered...",
                     Toast.LENGTH_SHORT).show();

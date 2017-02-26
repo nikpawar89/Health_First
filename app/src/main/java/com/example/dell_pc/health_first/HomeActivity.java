@@ -79,6 +79,12 @@ public class HomeActivity extends Activity {
 
                        }
 
+                       if(item.toString().equals("Diet")){
+                           Intent in=new Intent(HomeActivity.this,Diet.class);
+                           startActivity(in);
+
+                       }
+
                        if(item.toString().equals("Logout")){
 
                           /* Intent in=new Intent(HomeActivity.this,ViewProfileActivity.class);
