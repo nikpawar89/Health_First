@@ -21,9 +21,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -36,7 +39,9 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
     private EditText meditTextservingsize;
      private DatabaseReference databaseReference;
     Map<String,Object> taskMap = new HashMap<String,Object>();
-    String uid="";
+    List<DietFields> foodList;
+    Map<String,Object> foodMap = new HashMap<String,Object>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +54,18 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
             Toast.makeText(getApplicationContext(), "Please Enter Valid Food name",
                     Toast.LENGTH_SHORT).show();
             //get refrence to database
-            databaseReference = FirebaseDatabase.getInstance().getReference().child(uid);
+            databaseReference = FirebaseDatabase.getInstance().getReference().child(uid).child("diet");
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    String firstname_ = (String)dataSnapshot.child("firstName").getValue();
+
+                    GenericTypeIndicator<Map<String,Object>> genericTypeIndicator =new GenericTypeIndicator<Map<String,Object>>(){};
+
+                    foodMap=dataSnapshot.getValue(genericTypeIndicator);
+
+                   // foodList=dataSnapshot.child("foodname").getValue();
+
+                   /* String firstname_ = (String)dataSnapshot.child("firstName").getValue();
                     String lastname_ = (String)dataSnapshot.child("lastName").getValue();
                     Long phoneno_ = (Long)dataSnapshot.child("phoneNumber").getValue();
                     String age_ = (String) dataSnapshot.child("age").getValue();
@@ -62,9 +74,10 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
                     String blood_ = (String)dataSnapshot.child("blood").getValue();
                     String docname_ = (String)dataSnapshot.child("doctor").getValue();
                     String emeconname = (String)dataSnapshot.child("emerName").getValue();
-                    String emeconno = (String)dataSnapshot.child("emerContact").getValue();
+                    String emeconno = (String)dataSnapshot.child("emerContact").getValue();*/
 
-                    if (firstname_ != null)
+
+                  /*  if (firstname_ != null)
                     {
                         taskMap.put("firstName", firstname_);
                     }
@@ -106,7 +119,7 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
                     {
                         taskMap.put("emerContact",emeconno);
                     }
-                  /*  if()
+                    if()
                     {
                         taskMap.put("genedr",geneder);
                     }*/
@@ -236,12 +249,17 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
 
 
         Toast.makeText(this,"Save info called",Toast.LENGTH_SHORT).show();
+        DietFields field=new DietFields(foodname,servingSize,calories);
+        //foodList.add(field);
 
-        Map<String,Object> dietvals=new HashMap<>();
+       // foodMap.put("","")
 
-        dietvals.put("foodname",foodname);
-        dietvals.put("servingSize",servingSize);
-        dietvals.put("calories",calories);
+
+        foodMap.put("foodname",foodname);
+        foodMap.put("servingSize",servingSize);
+        foodMap.put("calories",calories);
+
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -249,7 +267,11 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
 
             String uid = user.getUid();//get the current user UID
             Toast.makeText(this,"uid while saving data is "+uid,Toast.LENGTH_SHORT).show();
-           databaseReference.updateChildren(dietvals);
+           //databaseReference.updateChildren(dietvals);
+            databaseReference.setValue(foodMap);
+
+
+
         Toast.makeText(this, " Profile Updated Successfully", Toast.LENGTH_SHORT).show();
             Intent in=new Intent(Diet.this,HomeActivity.class);
             startActivity(in);
