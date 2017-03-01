@@ -97,7 +97,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
 
-    <EditText
+  <!--  <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
@@ -126,7 +126,30 @@
         android:ems="10"
         android:layout_below="@+id/edit"
         android:layout_alignStart="@+id/cal"
-        android:id="@+id/servsize" />
+        android:id="@+id/servsize" />-->
+
+
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <TextView
+            android:id="@+id/textView04"
+            android:text="Food Name"
+            android:textStyle="bold"
+            android:typeface="serif"></TextView>
+        <TextView
+            android:id="@+id/textView03"
+            android:text="Calorie Count"
+            android:textStyle="bold"
+            android:typeface="serif"></TextView>
+
+        <TextView
+            android:id="@+id/textView01"
+            android:text="Serving Size"
+            android:textStyle="bold"
+            android:typeface="serif"></TextView>
+    </TableRow>
 
 
 </RelativeLayout>

@@ -19,6 +19,9 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+
+
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -29,6 +32,7 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
     private EditText medittextfoodname;
     private EditText meditTextcalorie;
     private EditText meditTextservingsize;
+    int total=0;
 
 
     private EditText tedittextfoodname;
@@ -47,9 +51,9 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diet);
 
-        final EditText fn = (EditText) findViewById(R.id.fn);
+  /*      final EditText fn = (EditText) findViewById(R.id.fn);
         final EditText cal = (EditText) findViewById(R.id.cal);
-        final EditText servsize = (EditText) findViewById(R.id.servsize);
+        final EditText servsize = (EditText) findViewById(R.id.servsize);*/
 
         // editbutton= (Button) findViewById(R.id.edit);
 
@@ -59,6 +63,8 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
             String uid = user.getUid();//get the current user UID
             Toast.makeText(getApplicationContext(), "Please Enter Valid Food name",
                     Toast.LENGTH_SHORT).show();
+
+
             //get refrence to database
             databaseReference = FirebaseDatabase.getInstance().getReference().child(uid).child("diet");
             databaseReference.addValueEventListener(new ValueEventListener() {
@@ -69,24 +75,47 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
                     List messages = dataSnapshot.getValue(t);*/
 
                     GenericTypeIndicator<Map<String,Object>> t = new GenericTypeIndicator<Map<String,Object>>() {};
-                    Map messages = dataSnapshot.getValue(t);
+                   // Map messages = dataSnapshot.getChildren();
 
-                    String tempfoodname = (String)dataSnapshot.child("-Ke6dZDvfQ9OQeRk_DH_").child("foodname").getValue();
-                    String tempcal = dataSnapshot.child("-Ke6dZDvfQ9OQeRk_DH_").child("calories").getValue()+"";
-                    String tempblood_ = dataSnapshot.child("-Ke6dZDvfQ9OQeRk_DH_").child("servingSize").getValue()+"";
+                    Iterator<DataSnapshot> itr=dataSnapshot.getChildren().iterator();
+
+                    while(itr.hasNext())
+                    {
+                        String key=itr.next().getKey();
+
+                        String tempfoodname = (String)dataSnapshot.child(key).child("foodname").getValue();
+                        String tempcal = dataSnapshot.child(key).child("calories").getValue()+"";
+                        String tempblood_ = dataSnapshot.child(key).child("servingSize").getValue()+"";
+                        total+=Integer.parseInt(tempcal);
 
 
-                    tedittextfoodname = (EditText) findViewById(R.id.fn);
+
+                     /*   Toast.makeText(getApplicationContext(), tempfoodname,
+                                Toast.LENGTH_SHORT).show();
+
+                        Toast.makeText(getApplicationContext(), tempcal,
+                                Toast.LENGTH_SHORT).show();*/
+
+
+                    }
+
+
+                    Toast.makeText(getApplicationContext(), "total calories is "+total,
+                            Toast.LENGTH_SHORT).show();
+
+
+
+
+                   /* tedittextfoodname = (EditText) findViewById(R.id.fn);
                     teditTextservingsize = (EditText) findViewById(R.id.servsize);
-                    teditTextcalorie = (EditText) findViewById(R.id.cal);
+                    teditTextcalorie = (EditText) findViewById(R.id.cal);*/
 
-                    tedittextfoodname.setText(tempfoodname.toString());
+                   /* tedittextfoodname.setText(tempfoodname.toString());
                     teditTextservingsize.setText(tempcal.toString());
-                    teditTextcalorie.setText(tempblood_.toString());
+                    teditTextcalorie.setText(tempblood_.toString());*/
 
 
-                   /*
-                    if( messages == null ) {
+                 /*   if( messages == null ) {
                        // System.out.println('No messages');
                         Toast.makeText(getApplicationContext(), " no messages.. get lost ",
                                 Toast.LENGTH_SHORT).show();
@@ -195,8 +224,11 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
         if(id==R.id.edit)
         {
 
-            Toast.makeText(getApplicationContext(), "edit button pressed",
-                    Toast.LENGTH_SHORT).show();
+            /*Toast.makeText(getApplicationContext(), "edit button pressed",
+                    Toast.LENGTH_SHORT).show();*/
+
+            Intent in=new Intent(Diet.this,DietTable.class);
+            startActivity(in);
 
 
         }

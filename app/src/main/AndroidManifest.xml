@@ -24,7 +24,8 @@
         <activity android:name=".UpdateProfileActivity" />
         <activity android:name=".Registration" />
         <activity android:name=".Registration1" />
-        <activity android:name=".Diet"></activity>
+        <activity android:name=".Diet" />
+        <activity android:name=".DietTable"></activity>
     </application>
 
 </manifest>
