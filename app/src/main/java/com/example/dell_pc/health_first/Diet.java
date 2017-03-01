@@ -268,9 +268,11 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
             String uid = user.getUid();//get the current user UID
             Toast.makeText(this,"uid while saving data is "+uid,Toast.LENGTH_SHORT).show();
            //databaseReference.updateChildren(dietvals);
-            databaseReference.setValue(foodMap);
 
 
+
+            DatabaseReference ref=databaseReference.push();
+            ref.setValue(foodMap);
 
         Toast.makeText(this, " Profile Updated Successfully", Toast.LENGTH_SHORT).show();
             Intent in=new Intent(Diet.this,HomeActivity.class);
