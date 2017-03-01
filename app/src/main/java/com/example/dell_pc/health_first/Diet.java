@@ -1,20 +1,14 @@
 package com.example.dell_pc.health_first;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,10 +19,8 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,6 +29,13 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
     private EditText medittextfoodname;
     private EditText meditTextcalorie;
     private EditText meditTextservingsize;
+
+
+    private EditText tedittextfoodname;
+    private EditText teditTextcalorie;
+    private EditText teditTextservingsize;
+
+
      private DatabaseReference databaseReference;
     Map<String,Object> taskMap = new HashMap<String,Object>();
     List<DietFields> foodList;
@@ -47,6 +46,13 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diet);
+
+        final EditText fn = (EditText) findViewById(R.id.fn);
+        final EditText cal = (EditText) findViewById(R.id.cal);
+        final EditText servsize = (EditText) findViewById(R.id.servsize);
+
+        // editbutton= (Button) findViewById(R.id.edit);
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -59,9 +65,37 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    GenericTypeIndicator<Map<String,Object>> genericTypeIndicator =new GenericTypeIndicator<Map<String,Object>>(){};
+                   /* GenericTypeIndicator<List<String>> t = new GenericTypeIndicator<List<String>>() {};
+                    List messages = dataSnapshot.getValue(t);*/
 
-                    foodMap=dataSnapshot.getValue(genericTypeIndicator);
+                    GenericTypeIndicator<Map<String,Object>> t = new GenericTypeIndicator<Map<String,Object>>() {};
+                    Map messages = dataSnapshot.getValue(t);
+
+                    String tempfoodname = (String)dataSnapshot.child("-Ke6dZDvfQ9OQeRk_DH_").child("foodname").getValue();
+                    String tempcal = dataSnapshot.child("-Ke6dZDvfQ9OQeRk_DH_").child("calories").getValue()+"";
+                    String tempblood_ = dataSnapshot.child("-Ke6dZDvfQ9OQeRk_DH_").child("servingSize").getValue()+"";
+
+
+                    tedittextfoodname = (EditText) findViewById(R.id.fn);
+                    teditTextservingsize = (EditText) findViewById(R.id.servsize);
+                    teditTextcalorie = (EditText) findViewById(R.id.cal);
+
+                    tedittextfoodname.setText(tempfoodname.toString());
+                    teditTextservingsize.setText(tempcal.toString());
+                    teditTextcalorie.setText(tempblood_.toString());
+
+
+                   /*
+                    if( messages == null ) {
+                       // System.out.println('No messages');
+                        Toast.makeText(getApplicationContext(), " no messages.. get lost ",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        //System.out.println("The first message is: " + messages.get(0) );
+                        Toast.makeText(getApplicationContext(), "messages "+messages.get(0),
+                                Toast.LENGTH_SHORT).show();
+                    }*/
 
                    // foodList=dataSnapshot.child("foodname").getValue();
 
@@ -140,8 +174,10 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
 
 
         findViewById(R.id.button4add).setOnClickListener(this);
-        findViewById(R.id.button5edit).setOnClickListener(this);
+        //findViewById(R.id.edit).setOnClickListener(this);
         findViewById(R.id.button6back).setOnClickListener(this);
+
+        findViewById(R.id.edit).setOnClickListener(this);
 
     }
 
@@ -154,6 +190,17 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
 
         boolean valid =true;
         int id=v.getId();
+
+
+        if(id==R.id.edit)
+        {
+
+            Toast.makeText(getApplicationContext(), "edit button pressed",
+                    Toast.LENGTH_SHORT).show();
+
+
+        }
+
         if(id==R.id.button4add)
         {
             if(medittextfoodname.getText().toString().length()==0 || !isvalidString(medittextfoodname.getText().toString())){
@@ -265,6 +312,9 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
 
         if (user != null) {
 
+
+
+
             String uid = user.getUid();//get the current user UID
             Toast.makeText(this,"uid while saving data is "+uid,Toast.LENGTH_SHORT).show();
            //databaseReference.updateChildren(dietvals);
@@ -281,4 +331,9 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
         }
 
     }
+
+
+
+
+
 }

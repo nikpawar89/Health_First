@@ -20,7 +20,7 @@
         android:width="100dp"
         android:textSize="40dp"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/button5edit" />
+        android:layout_alignStart="@+id/edit" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -75,15 +75,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button6back"
-        android:layout_alignBaseline="@+id/button5edit"
-        android:layout_alignBottom="@+id/button5edit"
+        android:layout_alignBaseline="@+id/edit"
+        android:layout_alignBottom="@+id/edit"
         android:layout_alignParentEnd="true" />
 
     <Button
         android:text="EDIT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button5edit"
+        android:id="@+id/edit"
         android:layout_alignBaseline="@+id/button4add"
         android:layout_alignBottom="@+id/button4add"
         android:layout_centerHorizontal="true" />
@@ -96,6 +96,37 @@
         android:id="@+id/button4add"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="FoodName"
+        android:ems="10"
+        android:layout_below="@+id/editTextcalorie"
+        android:layout_alignEnd="@+id/edit"
+        android:layout_marginTop="19dp"
+        android:id="@+id/fn" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Cals"
+        android:ems="10"
+        android:layout_above="@+id/edit"
+        android:layout_alignStart="@+id/fn"
+        android:id="@+id/cal" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="servSize"
+        android:ems="10"
+        android:layout_below="@+id/edit"
+        android:layout_alignStart="@+id/cal"
+        android:id="@+id/servsize" />
 
 
 </RelativeLayout>
