@@ -1,9 +1,12 @@
 package com.example.dell_pc.health_first;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -39,7 +42,31 @@ public class DietTable extends AppCompatActivity {
             uid = user.getUid();
         }
 
+        //findViewById(R.id.edit).setOnClickListener(this);
 
+        Button button = (Button) findViewById(R.id.edit);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+
+
+                Toast.makeText(getApplicationContext(), "Diet updated successfully...!!!",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        Button backButton = (Button) findViewById(R.id.back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                Intent in=new Intent(DietTable.this,Diet.class);
+                startActivity(in);
+
+                /*mDatabase.child("users").child(mUserId).child("items").push().child("title").setValue(text.getText().toString());
+                text.setText("");*/
+            }
+        });
 
         //get refrence to database
         databaseReference = FirebaseDatabase.getInstance().getReference().child(uid).child("diet");
@@ -74,6 +101,7 @@ public class DietTable extends AppCompatActivity {
                 tbrow0.addView(tv3);
                 stk.addView(tbrow0);
                 int i=0;
+                int total=0;
 
                 while(itr.hasNext())
                 {
@@ -88,16 +116,18 @@ public class DietTable extends AppCompatActivity {
                     TableRow tbrow = new TableRow(getApplicationContext());
 
 
-                    EditText t4v = new EditText(getApplicationContext());
+                    TextView t4v = new TextView(getApplicationContext());
                     t4v.setText("" + i++);
                     t4v.setTextColor(Color.BLACK);
                     t4v.setGravity(Gravity.CENTER);
+
                     tbrow.addView(t4v);
 
                     EditText t1v = new EditText(getApplicationContext());
                     t1v.setText((String)dataSnapshot.child(key).child("foodname").getValue());
                     t1v.setTextColor(Color.BLACK);
                     t1v.setGravity(Gravity.CENTER);
+                    t1v.setId(i);
                     tbrow.addView(t1v);
 
 
@@ -106,12 +136,15 @@ public class DietTable extends AppCompatActivity {
                     t2v.setText(dataSnapshot.child(key).child("calories").getValue()+"");
                     t2v.setTextColor(Color.BLACK);
                     t2v.setGravity(Gravity.CENTER);
+                    t1v.setId(i+1);
                     tbrow.addView(t2v);
+                    total+=Integer.parseInt(dataSnapshot.child(key).child("calories").getValue()+"");
 
                     EditText t3v = new EditText(getApplicationContext());
                     t3v.setText(dataSnapshot.child(key).child("servingSize").getValue()+"");
                     t3v.setTextColor(Color.BLACK);
                     t3v.setGravity(Gravity.CENTER);
+                    t1v.setId(i+2);
                     tbrow.addView(t3v);
 
 
@@ -120,66 +153,25 @@ public class DietTable extends AppCompatActivity {
 
                 }
 
-
-
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
+
+
 
         });
 
        // init();
     }
 
-    public void init() {
-        TableLayout stk = (TableLayout) findViewById(R.id.activity_diet_table);
-        TableRow tbrow0 = new TableRow(this);
-        TextView tv0 = new TextView(this);
-        tv0.setText(" Sl.No ");
-        tv0.setTextColor(Color.GRAY);
-        tbrow0.addView(tv0);
-        TextView tv1 = new TextView(this);
-        tv1.setText(" Food Name ");
-        tv1.setTextColor(Color.GRAY);
-        tbrow0.addView(tv1);
-        TextView tv2 = new TextView(this);
-        tv2.setText(" Serving Size ");
-        tv2.setTextColor(Color.GRAY);
-        tbrow0.addView(tv2);
-        TextView tv3 = new TextView(this);
-        tv3.setText(" Calories ");
-        tv3.setTextColor(Color.GRAY);
-        tbrow0.addView(tv3);
-        stk.addView(tbrow0);
-        for (int i = 0; i < 25; i++) {
-            TableRow tbrow = new TableRow(this);
-
-            TextView t1v = new TextView(this);
-            t1v.setText("" + i);
-            t1v.setTextColor(Color.WHITE);
-            t1v.setGravity(Gravity.CENTER);
-            tbrow.addView(t1v);
 
 
 
-            TextView t2v = new TextView(this);
-            t2v.setText("Product " + i);
-            t2v.setTextColor(Color.WHITE);
-            t2v.setGravity(Gravity.CENTER);
-            tbrow.addView(t2v);
-            TextView t3v = new TextView(this);
-            t3v.setText("Rs." + i);
-            t3v.setTextColor(Color.WHITE);
-            t3v.setGravity(Gravity.CENTER);
-            tbrow.addView(t3v);
-            TextView t4v = new TextView(this);
-            t4v.setText("" + i * 15 / 32 * 10);
-            t4v.setTextColor(Color.WHITE);
-            t4v.setGravity(Gravity.CENTER);
-            tbrow.addView(t4v);
-            stk.addView(tbrow);
-        }
+    public void saveInfo()
+    {
+
+
 
     }
 

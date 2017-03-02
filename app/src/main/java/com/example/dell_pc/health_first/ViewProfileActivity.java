@@ -47,7 +47,7 @@ public class ViewProfileActivity extends Activity {
             //UserInformation userInformation = new UserInformation(firstName,lastName,age,phoneNumber,emergencyContact,username,password);
 
 
-            Toast.makeText(this," your uid is "+uid,Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(this," your uid is "+uid,Toast.LENGTH_SHORT).show();
             databaseReference = FirebaseDatabase.getInstance().getReference().child(uid);
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override

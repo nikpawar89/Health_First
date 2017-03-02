@@ -134,8 +134,8 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
         <TextView
-            android:id="@+id/textView04"
-            android:text="Food Name"
+            android:id="@+id/totalCal"
+            android:text="TotalCal"
             android:textStyle="bold"
             android:typeface="serif"></TextView>
         <TextView

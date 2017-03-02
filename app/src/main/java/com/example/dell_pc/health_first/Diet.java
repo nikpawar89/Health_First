@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +33,7 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
     private EditText medittextfoodname;
     private EditText meditTextcalorie;
     private EditText meditTextservingsize;
+    private TextView totalCalories;
     int total=0;
 
 
@@ -102,6 +104,10 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
 
                     Toast.makeText(getApplicationContext(), "total calories is "+total,
                             Toast.LENGTH_SHORT).show();
+
+                        totalCalories=(TextView)findViewById(R.id.totalCal);
+                    totalCalories.setText(total+"");
+
 
 
 
@@ -327,7 +333,7 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
     {
 
 
-        Toast.makeText(this,"Save info called",Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(this,"Save info called",Toast.LENGTH_SHORT).show();
         DietFields field=new DietFields(foodname,servingSize,calories);
         //foodList.add(field);
 
@@ -348,7 +354,7 @@ public class Diet extends AppCompatActivity implements View.OnClickListener{
 
 
             String uid = user.getUid();//get the current user UID
-            Toast.makeText(this,"uid while saving data is "+uid,Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this,"uid while saving data is "+uid,Toast.LENGTH_SHORT).show();
            //databaseReference.updateChildren(dietvals);
 
 
